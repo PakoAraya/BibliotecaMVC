@@ -9,26 +9,25 @@ import java.util.List;
 
 import com.dto.LibroDTO;
 import com.dto.AutorDTO;
-import com.models.Autor;
-import com.models.Libro;
 import com.utils.AppConfig;
 import com.utils.DatabaseUtil;
 
 public class LibroDAO {
-
+    
     //Metodo para obtener todos los libros de la base de datos
     public List<LibroDTO> traerTodosLibros() {
         List<LibroDTO> libroDTOList = new ArrayList<>();
         AppConfig.initialize();
         
-        String query = "SELECT l.*, a.nombre AS nombre_autor, a.apellido AS apellido_autor "
+        String query = "SELECT l.*, a.nombre AS nombre_autor, a.apellido AS apellido_autor, "
+                    + "a.genero AS genero_autor, a.especialidad "
                     + "FROM libros l JOIN autores a ON l.id_autor = a.id_autor";
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query);
              ResultSet rs = pstmt.executeQuery()) {
             
             while(rs.next()) {
-                Libro libro = new Libro();
+                LibroDTO libro = new LibroDTO();
                 libro.setIdLibro(rs.getInt("id_libro"));
                 libro.setIsbn(rs.getString("isbn"));
                 libro.setTitulo(rs.getString("titulo"));
@@ -36,13 +35,15 @@ public class LibroDAO {
                 libro.setGenero(rs.getString("genero"));
                 libro.setEditorial(rs.getString("editorial"));
                 
-                Autor autor = new Autor();
+                AutorDTO autor = new AutorDTO();
                 autor.setIdAutor(rs.getInt("id_autor"));
                 autor.setNombre(rs.getString("nombre_autor"));
                 autor.setApellido(rs.getString("apellido_autor"));
+                autor.setGenero(rs.getString("genero_autor"));
+                autor.setEspecialidad(rs.getString("especialidad"));
                 libro.setAutor(autor);
                 
-                libroDTOList.add(new LibroDTO(libro));
+                libroDTOList.add(libro);
             }
         } catch (SQLException e) {
             System.err.println("Error al traer los libros: " + e.getMessage());
@@ -68,23 +69,21 @@ public class LibroDAO {
             ResultSet rs = pstmt.executeQuery();
             
             if(rs.next()) {
-                Libro libro = new Libro();
-                libro.setIdLibro(rs.getInt("id_libro"));
-                libro.setIsbn(rs.getString("isbn"));
-                libro.setTitulo(rs.getString("titulo"));
-                libro.setAnioPublicacion(rs.getInt("anio_publicacion"));
-                libro.setGenero(rs.getString("genero"));
-                libro.setEditorial(rs.getString("editorial"));
+                libroDTO = new LibroDTO();
+                libroDTO.setIdLibro(rs.getInt("id_libro"));
+                libroDTO.setIsbn(rs.getString("isbn"));
+                libroDTO.setTitulo(rs.getString("titulo"));
+                libroDTO.setAnioPublicacion(rs.getInt("anio_publicacion"));
+                libroDTO.setGenero(rs.getString("genero"));
+                libroDTO.setEditorial(rs.getString("editorial"));
                 
-                Autor autor = new Autor();
+                AutorDTO autor = new AutorDTO();
                 autor.setIdAutor(rs.getInt("id_autor"));
                 autor.setNombre(rs.getString("nombre_autor"));
                 autor.setApellido(rs.getString("apellido_autor"));
                 autor.setGenero(rs.getString("genero_autor"));
                 autor.setEspecialidad(rs.getString("especialidad"));
-                libro.setAutor(autor);
-                
-                libroDTO = new LibroDTO(libro);
+                libroDTO.setAutor(autor);
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener el libro: " + e.getMessage());
@@ -134,7 +133,6 @@ public class LibroDAO {
             
         } catch (SQLException e) {
             System.err.println("Error al actualizar libro: " + e.getMessage());
-            e.printStackTrace();
         }
     }
     
