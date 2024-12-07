@@ -14,6 +14,7 @@
 <div class="container mt-5">
     <h2 class="text-center">Lista de Libros</h2>
     <a href="LibroServlet?action=add" class="btn btn-success mb-3">Agregar Nuevo Libro</a>
+    <a href="AutorServlet?action=list" class="btn btn-info mb-3">Ver Lista de Autores</a> <!-- Botón para ver autores -->
     <a href="LogoutServlet" class="btn btn-danger mb-3">Cerrar Sesión</a>
     <table class="table table-bordered">
         <thead>
