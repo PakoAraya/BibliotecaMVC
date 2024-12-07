@@ -59,15 +59,15 @@
                     } 
                     %>
                 </select>
+                <!-- Botón para abrir el modal -->
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#nuevoAutorModal">
+                    Agregar Autor
+                </button>
             </div>
         </div>
         
         <div class="mb-3">
             <button type="submit" class="btn btn-primary">Guardar Libro</button>
-            <!-- Botón para abrir el modal de nuevo autor -->
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#nuevoAutorModal">
-            	Agregar Autor
-            </button>
             <a href="LibroServlet?action=list" class="btn btn-secondary">Cancelar</a>
         </div>
     </form>
@@ -94,7 +94,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="generoAutor" class="form-label">Género</label>
-                        <input type="text" class="form-control" id="generoAutor" name="genero" required>
+                        <select class="form-control" id="generoAutor" name="genero" required>
+                            <option value="">Seleccione el género</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino">Femenino</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="especialidadAutor" class="form-label">Especialidad</label>
