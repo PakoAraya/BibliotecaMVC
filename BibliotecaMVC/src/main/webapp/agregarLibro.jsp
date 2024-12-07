@@ -43,31 +43,28 @@
         
         <div class="mb-3">
             <label for="id_autor" class="form-label">Autor</label>
-            <div class="d-flex">
-                <select class="form-control me-2" id="id_autor" name="id_autor" required>
-                    <option value="">Seleccione un autor</option>
-                    <% 
-                    List<AutorDTO> autores = (List<AutorDTO>) request.getAttribute("autores");
-                    if (autores != null) {
-                        for (AutorDTO autor : autores) { 
-                    %>
+            <select class="form-control" id="id_autor" name="id_autor" required>
+                <option value="">Seleccione un autor</option>
+                <% 
+                List<AutorDTO> autores = (List<AutorDTO>) request.getAttribute("autores");
+                if (autores != null) {
+                    for (AutorDTO autor : autores) { 
+                %>
                         <option value="<%= autor.getIdAutor() %>">
                             <%= autor.getNombre() + " " + autor.getApellido() %>
                         </option>
-                    <%  
-                        }
-                    } 
-                    %>
-                </select>
-                <!-- Botón para abrir el modal -->
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#nuevoAutorModal">
-                    Agregar Autor
-                </button>
-            </div>
+                <%  
+                    }
+                } 
+                %>
+            </select>
         </div>
         
-        <div class="mb-3">
-            <button type="submit" class="btn btn-primary">Guardar Libro</button>
+        <div class="mb-3 d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary me-2">Guardar Libro</button>
+            <button type="button" class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#nuevoAutorModal">
+                Agregar Autor
+            </button>
             <a href="LibroServlet?action=list" class="btn btn-secondary">Cancelar</a>
         </div>
     </form>
@@ -115,19 +112,5 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    // Actualiza el select de autores al cerrar el modal (simulación)
-    document.getElementById('formNuevoAutor').addEventListener('submit', function (e) {
-        e.preventDefault(); // Evita recargar la página
-        const nombre = document.getElementById('nombreAutor').value;
-        const apellido = document.getElementById('apellidoAutor').value;
-        const nuevoId = Date.now(); // Simulación de ID único
-        const nuevoOption = new Option(`${nombre} ${apellido}`, nuevoId);
-        document.getElementById('id_autor').add(nuevoOption);
-        document.getElementById('id_autor').value = nuevoId;
-        const modal = bootstrap.Modal.getInstance(document.getElementById('nuevoAutorModal'));
-        modal.hide();
-    });
-</script>
 </body>
 </html>
