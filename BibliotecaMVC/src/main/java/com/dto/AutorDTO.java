@@ -14,7 +14,7 @@ public class AutorDTO {
     	
     }
     
- // Constructor completo
+    // Constructor completo
     public AutorDTO(int idAutor, String nombre, String apellido, String genero, String especialidad) {
         this.idAutor = idAutor;
         this.nombre = nombre;

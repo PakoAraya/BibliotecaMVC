@@ -1,40 +1,42 @@
 package com.dto;
 
-import com.models.Autor;
 import com.models.Libro;
+import com.models.Autor;
 
 public class LibroDTO {
-	private int idLibro;
+    private int idLibro;
     private String isbn;
     private String titulo;
     private int anioPublicacion;
     private String genero;
     private String editorial;
-    private Autor autor; // Cambiado de idAutor a Autor
+    private AutorDTO autor; // Cambiado de Autor a AutorDTO
     
     //Constructor sin parametros
     public LibroDTO() {
-    	
     }
 
     // Constructor que toma una instancia de Libro
     public LibroDTO(Libro libro) {
-    	this.idLibro = libro.getIdLibro();  // Agregar esta línea para asignar el ID
+        this.idLibro = libro.getIdLibro();
         this.isbn = libro.getIsbn();
         this.titulo = libro.getTitulo();
         this.anioPublicacion = libro.getAnioPublicacion();
         this.genero = libro.getGenero();
         this.editorial = libro.getEditorial();
-        this.autor = libro.getAutor(); // Asignación del objeto Autor
+        // Convertir Autor a AutorDTO
+        if (libro.getAutor() != null) {
+            this.autor = new AutorDTO(libro.getAutor());
+        }
     }
 
     // Getters y Setters
     public int getIdLibro() {
-        return idLibro; 
+        return idLibro;
     }
 
     public void setIdLibro(int idLibro) {
-        this.idLibro = idLibro; 
+        this.idLibro = idLibro;
     }
     
     public String getIsbn() {
@@ -77,18 +79,19 @@ public class LibroDTO {
         this.editorial = editorial;
     }
 
-    public Autor getAutor() {
-        return autor; // Cambiado para devolver el objeto Autor
+    public AutorDTO getAutor() {
+        return autor;
     }
 
-    public void setAutor(Autor autor) {
-        this.autor = autor; // Cambiado para asignar el objeto Autor
+    public void setAutor(AutorDTO autor) {
+        this.autor = autor;
     }
 
     // Método toString
     @Override
     public String toString() {
-        return "LibroDTO [isbn=" + isbn + ", titulo=" + titulo + ", anioPublicacion=" + anioPublicacion + ", genero=" + genero
-                + ", editorial=" + editorial + ", autor=" + autor + "]";
+        return "LibroDTO [idLibro=" + idLibro + ", isbn=" + isbn + ", titulo=" + titulo + 
+               ", anioPublicacion=" + anioPublicacion + ", genero=" + genero +
+               ", editorial=" + editorial + ", autor=" + autor + "]";
     }
 }
