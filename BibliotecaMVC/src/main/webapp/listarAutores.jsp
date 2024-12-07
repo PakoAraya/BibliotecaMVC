@@ -10,13 +10,23 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Lista de Autores</h1>
+    <div class="container mt-3">
+        <!-- Título centrado -->
+        <h1 class="mb-4 text-center">Lista de Autores</h1>
 
-        <div class="mb-3">
-            <a href="formAutor.jsp" class="btn btn-primary">Nuevo Autor</a>
+        <!-- Enlaces de navegación simples -->
+        <div class="d-flex justify-content-between mb-4">
+            <div>
+                <a href="LibroServlet?action=list" class="btn btn-secondary">Lista de Libros</a>
+                <a href="formAutor.jsp" class="btn btn-primary">Nuevo Autor</a>
+            </div>
+            <form action="LoginServlet" method="post" class="d-inline">
+                <input type="hidden" name="action" value="logout">
+                <button type="submit" class="btn btn-danger">Cerrar Sesión</button>
+            </form>
         </div>
 
+        <!-- Tabla para mostrar los autores -->
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr>
@@ -64,6 +74,7 @@
             </tbody>
         </table>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
